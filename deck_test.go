@@ -22,16 +22,25 @@ func TestNewDeck(t *testing.T) {
 }
 
 func TestSaveToFileAndTestNewDeckFromFile(t *testing.T) {
-	os.Remove("_decktesting")
+	err := os.Remove("_deck-testing")
+	if err != nil {
+		return
+	}
 
 	d := newDeck()
-	d.saveToFile("_decktesting")
+	err = d.saveToFile("_deck-testing")
+	if err != nil {
+		return
+	}
 
-	loadedDeck := newDeckFromFile("_decktesting")
+	loadedDeck := newDeckFromFile("_deck-testing")
 
 	if len(loadedDeck) != 52 {
 		t.Errorf("Expected 52 cards in deck, got %v", len(loadedDeck))
 	}
 
-	os.Remove("_decktesting")
+	err = os.Remove("_deck-testing")
+	if err != nil {
+		return
+	}
 }
